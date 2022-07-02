@@ -56,7 +56,7 @@ public class InsertUpdateDeleteDemo {
                     System.out.println(res + "Rows Inserted");
                     System.out.println("End of Process");
                 } else if (choice == 3) {
-                    PreparedStatement stmt = conn.prepareStatement("UPDATE students SET Name='?',Age='?',Course='?' WHERE Id=?");
+                    PreparedStatement stmt = conn.prepareStatement("UPDATE students SET Name=?,Age=?,Course=? WHERE Id=?");
                     System.out.print("Enter Name : ");
                     String name = sc.next();
                     System.out.print("Enter Age : ");
@@ -71,7 +71,6 @@ public class InsertUpdateDeleteDemo {
                     stmt.setInt(4, id);
                     int res = stmt.executeUpdate();
                     System.out.println(res + "Rows Updated");
-                    conn.close();
                     System.out.println("End of Process");
                 } else if (choice == 4) {
                     PreparedStatement stmt = conn.prepareStatement("DELETE FROM students WHERE Id=?");
