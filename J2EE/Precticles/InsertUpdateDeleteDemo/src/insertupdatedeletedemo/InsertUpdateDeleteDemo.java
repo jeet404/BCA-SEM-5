@@ -76,7 +76,7 @@ public class InsertUpdateDeleteDemo {
                     PreparedStatement stmt = conn.prepareStatement("DELETE FROM students WHERE Id=?");
                     System.out.print("Enter ID of Record : ");
                     int id = sc.nextInt();
-                    stmt.setInt(4, id);
+                    stmt.setInt(1, id);
                     int res = stmt.executeUpdate();
                     System.out.println(res + "Rows Deleted");
                     System.out.println("End of Process");
