@@ -84,7 +84,7 @@ public class MainServlet extends HttpServlet {
                         + "<td>" + res.getString(4) + "</td>\n"
                         + "<td>\n"
                         + "<a href=\"EditServlet?id=" + res.getInt(1) + "\" class=\"btn btn-primary\">Update</a>\n"
-                        + "<a href=\"DeleteServlet?id=" + res.getInt(1) + "\" class=\"btn btn-danger\">Delete</a>\n"
+                        + "<a href=\"DeleteProccess?id=" + res.getInt(1) + "\" class=\"btn btn-danger\">Delete</a>\n"
                         + "</td>\n"
                         + "</tr>\n");
             }
