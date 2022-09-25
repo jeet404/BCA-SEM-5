@@ -1,28 +1,43 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 
-public class loginProccess extends HttpServlet {
+/**
+ *
+ * @author Jeet404
+ */
+public class loginProcess extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String uname = request.getParameter("uname");
-        String pass = request.getParameter("pass");
+        String msg = "";
         try {
-            if ("jeet404".equals(uname) && "jeet@404".equals(pass)) {
-                RequestDispatcher rd = request.getRequestDispatcher("MainServlet");
-                rd.forward(request, response);
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbc_demo", "root", "");
+            Statement stmt = conn.createStatement();
+            ResultSet res = stmt.executeQuery("SELECT * FROM `login_details` WHERE username='" + request.getParameter("uname") + "' AND password='" + request.getParameter("pass") + "'");
+            if (res != null) {
+                msg = "Logged In Successfully";
             } else {
-                RequestDispatcher rd = request.getRequestDispatcher("index.html");
-                rd.forward(request, response);
+                msg = "Wrong Details !";
             }
+            request.setAttribute("msg", msg);
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            rd.forward(request, response);
+        } catch (SQLException se) {
+            out.print(se);
+        } catch (ClassNotFoundException e) {
+            out.print(e);
         } finally {
             out.close();
         }

@@ -1,28 +1,49 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.*;
+import javax.servlet.http.HttpSession;
 
-public class loginProccess extends HttpServlet {
+public class sessionDemo extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String uname = request.getParameter("uname");
-        String pass = request.getParameter("pass");
+        HttpSession session = request.getSession(true);
+        String title = "Welcome to My Website";
+        Integer visitcnt = new Integer(0);
+        String visitcntkey = new String("visitcount");
+        String userIDKey = new String("userID");
+        String userID = new String("JEET404");
+        if (session.isNew()) {
+            title = "Welcome back to My Website";
+        } else {
+            visitcnt = (Integer) session.getAttribute(visitcntkey);
+            visitcnt = visitcnt + 1;
+            userID = (String) session.getAttribute(userIDKey);
+        }
+        session.setAttribute(visitcntkey, visitcnt);
         try {
-            if ("jeet404".equals(uname) && "jeet@404".equals(pass)) {
-                RequestDispatcher rd = request.getRequestDispatcher("MainServlet");
-                rd.forward(request, response);
-            } else {
-                RequestDispatcher rd = request.getRequestDispatcher("index.html");
-                rd.forward(request, response);
-            }
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet sessionDemo</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet sessionDemo at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         } finally {
             out.close();
         }

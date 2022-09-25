@@ -28,6 +28,10 @@
         <servlet-name>DeleteProccess</servlet-name>
         <servlet-class>DeleteProccess</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>sessionDemo</servlet-name>
+        <servlet-class>sessionDemo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/MainServlet</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>DeleteProccess</servlet-name>
         <url-pattern>/DeleteProccess</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sessionDemo</servlet-name>
+        <url-pattern>/sessionDemo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

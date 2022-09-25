@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -7,25 +12,39 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class loginProccess extends HttpServlet {
+/**
+ *
+ * @author Jeet404
+ */
+public class resProccess extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        String uname = request.getParameter("uname");
-        String pass = request.getParameter("pass");
-        try {
-            if ("jeet404".equals(uname) && "jeet@404".equals(pass)) {
-                RequestDispatcher rd = request.getRequestDispatcher("MainServlet");
-                rd.forward(request, response);
-            } else {
-                RequestDispatcher rd = request.getRequestDispatcher("index.html");
-                rd.forward(request, response);
-            }
-        } finally {
-            out.close();
-        }
+        int tot = 0;
+        float per = 0;
+        String fname = request.getParameter("fname");
+        String grno = request.getParameter("grno");
+        String course = request.getParameter("crs");
+        String math, snt, eng, soci;
+
+        math = request.getParameter("math");
+        snt = request.getParameter("snt");
+        eng = request.getParameter("eng");
+        soci = request.getParameter("soci");
+
+        tot = Integer.parseInt(math) + Integer.parseInt(snt) + Integer.parseInt(eng) + Integer.parseInt(soci);
+        per = (tot / 4) * 100;
+        request.setAttribute("fname", fname);
+        request.setAttribute("grno", grno);
+        request.setAttribute("crs", course);
+        request.setAttribute("math", math);
+        request.setAttribute("snt", snt);
+        request.setAttribute("eng", eng);
+        request.setAttribute("soci", soci);
+        request.setAttribute("total", tot);
+        request.setAttribute("per", per);
+        RequestDispatcher rd = request.getRequestDispatcher("calres.jsp");
+        rd.include(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
