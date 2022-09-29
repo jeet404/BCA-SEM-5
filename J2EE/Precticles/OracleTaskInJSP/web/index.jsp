@@ -13,18 +13,18 @@
     <h1>Take Your Appointment</h1>
     <hr>
     <div class="cont">
-        <form action="inProcess.jsp" method="POST">
+        <form action="" method="POST">
             <div>
-                <input type="text" name="fname" placeholder="Enter Full Name">
+                <input type="text" id="fname" placeholder="Enter Full Name">
             </div>
             <div>
-                <input type="text" name="mno" placeholder="Enter Phonenumber">
+                <input type="text" id="mno" placeholder="Enter Phonenumber">
             </div>
             <div>
-                <input type="text" name="age" placeholder="Enter Age">
+                <input type="text" id="age" placeholder="Enter Age">
             </div>
             <div>
-                <select name="fld">
+                <select id="fld">
                     <option>--Select Field--</option>
                     <%                        Statement stmt = conn.createStatement();
                         ResultSet rs = stmt.executeQuery("select * from ap_fields");
@@ -37,12 +37,38 @@
                 </select>
             </div>
             <div>
-                <input type="date" name="dt" placeholder="Choose Date">              
+                <input type="date" id="dt" placeholder="Choose Date">              
             </div>
             <div style="display: flex;justify-content: center">
-                <input type="submit" name="iTake" value="Take Appointment">
+                <input type="submit" id="iTake" value="Take Appointment">
             </div>
+            <div id="apid" style="color: green"></div>
         </form>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $("form").submit(function () {
+            var fname = $("#fname").val();
+            var mno = $("#mno").val();
+            var age = $("#age").val();
+            var fld = $("#fld").val();
+            var dt = $("#dt").val();
+            $.ajax({
+                type: "POST",
+                url: "inProcess.jsp",
+                data: {
+                    fname: fname,
+                    mno: mno,
+                    age: age,
+                    fld: fld,
+                    dt: dt
+                },
+                success: function (response) {
+                    $("apid").val("Your Appointment ID is : " + response);
+                }
+            });
+        });
+    });
+</script>
 <%@include file="footer.jsp" %>
